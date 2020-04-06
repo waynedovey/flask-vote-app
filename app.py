@@ -89,9 +89,9 @@ def vote():
         has_voted = True
         vote = request.form['vote']
         if vote_stamp:
-           print "This client has already has voted! His vote stamp is : " + vote_stamp
+           print ("This client has already has voted! His vote stamp is : " + vote_stamp)
         else:
-           print "This client has not voted yet!"
+           print ("This client has not voted yet!")
            voted_option = Option.query.filter_by(poll_id=poll.id,id=vote).first() 
            voted_option.votes += 1
            db.session.commit()
@@ -102,7 +102,7 @@ def vote():
     
     if has_voted:
        vote_stamp = hex(random.getrandbits(64))[2:-1]
-       print "Set coookie for voted"
+       print ("Set coookie for voted")
        resp.set_cookie('vote_stamp', vote_stamp)
 
     if cache['fail'] == 1:
@@ -129,27 +129,27 @@ def fail():
 
 if __name__ == '__main__':
 
-    print "Connect to : " + dburi
+    print ("Connect to : " + dburi)
 
     db.create_all()
     db.session.commit()
     hostname = socket.gethostname()
          
-    print "Check if a poll already exists in the db"
+    print ("Check if a poll already exists in the db")
     # TODO check the latest one filtered by timestamp
     poll = Poll.query.first()
     
     if poll:
-       print "Restart the poll"
+       print ("Restart the poll")
        poll.stamp = datetime.utcnow()
        db.session.commit()
     
     else:
-       print "Load seed data from file"
+       print ("Load seed data from file")
        try: 
            with open(os.path.join(basedir, 'seeds/seed_data.json')) as file:
                seed_data = json.load(file)
-               print "Start a new poll"
+               print ("Start a new poll")
                poll = Poll(seed_data['poll'], seed_data['question'])
                db.session.add(poll)
                for i in seed_data['options']:
@@ -158,7 +158,7 @@ if __name__ == '__main__':
                db.session.commit()
 
        except:
-          print "Cannot load seed data from file"
+          print ("Cannot load seed data from file")
           poll = Poll("", "")
 
     app.run(host='0.0.0.0', port=8080, debug=False)
