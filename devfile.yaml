@@ -17,7 +17,7 @@ components:
     alias: python
     image: 'registry.redhat.io/codeready-workspaces/stacks-python-rhel8:2.0'
 commands:
-  - name: Install app dependencies
+  - name: Install dependencies
     actions:
       - type: exec
         component: python
@@ -26,13 +26,7 @@ commands:
           pip install flask-sqlalchemy 
           pip install mysql-python
         workdir: /projects/vote-app
-  - name: 'theia:run'
-    actions:
-      - type: exec
-        component: python
-        command: python app.py
-        workdir: '${CHE_PROJECTS_ROOT}/vote-app'
-  - name: run
+  - name: Run
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/vote-app'
         type: exec
