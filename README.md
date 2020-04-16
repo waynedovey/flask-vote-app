@@ -83,5 +83,16 @@ An external MySQL database can be used instead of the internal sqlite by setting
                -e DB_TYPE=mysql \
                -d -p 80:5000  --name=vote flask-vote-app:latest
 
- Happy polling!
+## CodeReady Workspaces deployment
+
+You can instantiate workspaces on demand by opening the devfile.yaml file in CodeReady Workspaces, e.g. the following URL: https://<CheHost>/f?url=https://<GitRepository>
+
+Open your browser to the devfile in CodeReady Workspaces: https://github.com/sjbylo/flask-vote-app
+
+e.g.
+
+https://codeready-workspaces.apps.cluster-sandbox7-6b91.sandbox7-6b91.example.opentlc.com/f?url=https://github.com/sjbylo/flask-vote-app
+
+Happy polling!
+
 
