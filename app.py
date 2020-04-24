@@ -4,6 +4,10 @@ import json
 import socket
 import flask
 
+#try:
+#    import configparser
+#except:
+#    from six.moves import configparser
 
 from datetime import datetime
 from flask import Flask, request, make_response, render_template
