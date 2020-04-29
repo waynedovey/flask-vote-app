@@ -32,14 +32,9 @@ Check if a poll already exists into db
 
 The test script can be used to test the vote app
 ```
-test-vote-app http://localhost:8080
+./test-vote-app http://localhost:8080
 ```
 
-After the vote-app ends, optionally remove the test data 
-
-```
-rm -f data/app.db  
-```
 
 Poll question and options are loaded from a JSON file called ``seed_data.json`` under the ``./seeds`` directory. This file is filled with default values, change it before to start the application.
 
@@ -56,16 +51,21 @@ export MASTER_PASSWORD=password
 export DB_TYPE=mysql
 ```
 
+Make sure an external MySQL database server is running according with the parameters above.
+
 Source the file and restart the application
 
 ```
 source flask.rc
 python app.py
-
-rm -f data/app.db  # Optionally remove the test data
 ```
 
-Make sure an external MySQL database server is running according with the parameters above.
+Cleanup
+
+```
+rm -f data/app.db    # optionaly remove the database 
+```
+
 
 ## Docker deployment
 A Dockerfile is provided in the reposistory to build a docker image and run the application as linux container.
@@ -119,6 +119,12 @@ docker run -e ENDPOINT_ADDRESS=db \
            -d -p 8080:8080  --name=vote-app vote-app:latest
 ```
 
+Cleanup
+
+```
+docker stop vote-app && docker rm vote-app
+```
+
 ## Install the app onto OpenShift
 
 Build and launch he app
@@ -162,18 +168,20 @@ oc new-build python --name vote-app --binary
 Start the build.  This will upload the app code from the current working dir.
 
 ```
-oc start-build vote-app --from-dir=.
+oc start-build vote-app --from-dir=. --follow
 ```
 
-Launch the app
+Wait for the build to complete. Launch the app
 
 ```
 oc new-app vote-app
 ```
 
+Expose the app to the external network
 
-
-
+```
+oc expose svc vote-app
+```
 
 ## CodeReady Workspaces deployment
 
