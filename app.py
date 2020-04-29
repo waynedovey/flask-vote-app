@@ -20,19 +20,22 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 #dbpass  = os.environ.get('DB_PASS', '')
 #dbtype  = os.environ.get('DB_TYPE', '')
 
-dbhost  = os.environ.get('ENDPOINT_ADDRESS', '')
-dbport  = os.environ.get('PORT', '')
-dbname  = os.environ.get('DB_NAME', '')
-dbuser  = os.environ.get('MASTER_USERNAME', '')
-dbpass  = os.environ.get('MASTER_PASSWORD', '')
-dbtype  = os.environ.get('DB_TYPE', '')
-
 # These are the var names created via the RDS binding using the AWS Broker 
 # DB_NAME: 
 # ENDPOINT_ADDRESS: 
 # MASTER_PASSWORD: 
 # MASTER_USERNAME: 
 # PORT:
+
+# The default values ('db', 'vote' etc) are for making it easier to create this app in the OpenShift console after 
+# setting up a DB call 'db'...
+
+dbhost  = os.environ.get('ENDPOINT_ADDRESS', 'db')
+dbport  = os.environ.get('PORT', '3306')
+dbname  = os.environ.get('DB_NAME', 'vote')
+dbuser  = os.environ.get('MASTER_USERNAME', 'user')
+dbpass  = os.environ.get('MASTER_PASSWORD', 'password')
+dbtype  = os.environ.get('DB_TYPE', '')
 
 if dbtype == 'mysql':
    dburi  = dbtype + '://' + dbuser + ':' + dbpass + '@' + dbhost + ':' + dbport + '/' + dbname
