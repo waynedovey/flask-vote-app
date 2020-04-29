@@ -30,6 +30,11 @@ Check if a poll already exists into db
 * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
 
+The test script can be used to test the vote app
+```
+test-vote-app http://localhost:8080
+```
+
 After the vote-app ends, optionally remove the test data 
 
 ```
