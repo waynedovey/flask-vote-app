@@ -83,6 +83,36 @@ An external MySQL database can be used instead of the internal sqlite by setting
                -e DB_TYPE=mysql \
                -d -p 80:5000  --name=vote flask-vote-app:latest
 
+## Install the app onto OpenShift
+
+### Build and launch he app
+```
+oc new-app python~https://github.com/sjbylo/flask-vote-app.git --name vote-app
+```
+
+### Expose the app to the external network
+```
+oc expose svc vote-app
+```
+
+### Start a database (optional, if scale-out if needed)
+```
+oc new-app --name db mysql:5.7 -e MYSQL_USER=user -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=vote
+```
+
+### Connect the app to the DB
+
+```
+oc set env dc vote-app \
+   ENDPOINT_ADDRESS=db \
+   PORT=3306 \
+   DB_NAME=vote \
+   MASTER_USERNAME=user \
+   MASTER_PASSWORD=password \
+   DB_TYPE=mysql
+```
+
+
 ## CodeReady Workspaces deployment
 
 You can instantiate workspaces on demand by opening the devfile.yaml file in CodeReady Workspaces, e.g. the following URL: https://<CheHost>/f?url=https://<GitRepository>
