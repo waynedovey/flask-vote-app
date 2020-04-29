@@ -7,26 +7,34 @@ This application is intended for demo only.
 ## Local deployment
 This application can be deployed locally. On linux, install git and clone the reposistory
 
+```
     [root@centos]# yum install -y git
     [root@centos]# git clone https://github.com/kalise/flask-vote-app
     [root@centos]# cd flask-vote-app
+```
 
 Install the dependencies
 
+```
     pip install flask
     pip install flask-sqlalchemy
-    pip install mysql-python
+    pip install mysqlclient
+```
 
 and start the application
 
+```
     python app.py
     Check if a poll already exists into db
+    ...
     * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+```
 
 Poll question and options are loaded from a JSON file called ``seed_data.json`` under the ``./seeds`` directory. This file is filled with default values, change it before to start the application.
 
 The DB data file is called ``app.db`` and is located under the ``./data`` directory. To use an external MySQL database, set the environment variables by editing the ``flask.rc`` file under the application directory
 
+```
     nano flask.rc
     export PS1='[\u(flask)]\> '
     export DB_HOST=centos
@@ -35,11 +43,14 @@ The DB data file is called ``app.db`` and is located under the ``./data`` direct
     export DB_USER=voteuser
     export DB_PASS=password
     export DB_TYPE=mysql
+```
 
 Source the file and restart the application
 
+```
     source flask.rc
     python app.py
+```
 
 Make sure an external MySQL database server is running according with the parameters above.
 
@@ -48,59 +59,74 @@ A Dockerfile is provided in the reposistory to build a docker image and run the 
 
 On Linux, install and start Docker
 
+```
     [root@centos ~]# yum install -y docker
     [root@centos ~]# systemctl start docker
+```
 
 Install git and clone the reposistory
 
+```
     [root@centos]# yum install -y git
     [root@centos]# git clone https://github.com/kalise/flask-vote-app
     [root@centos]# cd flask-vote-app
+```
 
 Build a Docker image
 
+```
     [root@centos]# docker build -t flask-vote-app:latest .
     [root@centos]# docker images
     REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
     flask-vote-app        latest              e6e0578f5f2d        2 minutes ago       695.4 MB
+```
 
 Start the container
 
-    docker run -d -p 80:5000 --name=vote flask-vote-app:latest
+```
+    docker run -d -p 80:5000 --name=vote-app flask-vote-app:latest
+```
 
 Seeds data directory containing the seed data file ``seed_data.json`` can be mounted as an external volume under the host ``/mnt`` directory
 
+```
     cp flask-vote-app/seeds/seed_data.json /mnt
-    docker run -d -p 80:5000 -v /mnt:/app/seeds --name=vote flask-vote-app:latest
+    docker run -d -p 80:5000 -v /mnt:/app/seeds --name=vote-app flask-vote-app:latest
+```
 
 An external MySQL database can be used instead of the internal sqlite by setting the desired env variables
 
+```
     docker run -e DB_HOST=centos \
                -e DB_PORT=3306 \
                -e DB_NAME=votedb \
                -e DB_USER=voteuser \
                -e DB_PASS=password \
                -e DB_TYPE=mysql \
-               -d -p 80:5000  --name=vote flask-vote-app:latest
+               -d -p 80:5000  --name=vote-app flask-vote-app:latest
+```
 
 ## Install the app onto OpenShift
 
-### Build and launch he app
+Build and launch he app
+
 ```
 oc new-app python~https://github.com/sjbylo/flask-vote-app.git --name vote-app
 ```
 
-### Expose the app to the external network
+Expose the app to the external network
+
 ```
 oc expose svc vote-app
 ```
 
-### Start a database (optional, if scale-out if needed)
+Start a database (optional, if scale-out if needed)
+
 ```
 oc new-app --name db mysql:5.7 -e MYSQL_USER=user -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=vote
 ```
 
-### Connect the app to the DB
+Connect the app to the DB
 
 ```
 oc set env dc vote-app \
@@ -112,8 +138,32 @@ oc set env dc vote-app \
    DB_TYPE=mysql
 ```
 
+## Develop on OpenShift from the local directory
+
+Create a 'binary' build 
+
+```
+oc new-build python --name vote-app --binary
+```
+
+Start the build.  This will upload the app code from the current working dir.
+
+```
+oc start-build vote-app --from-dir=.
+```
+
+Launch the app
+
+```
+oc new-app vote-app
+```
+
+
+
+
 
 ## CodeReady Workspaces deployment
+
 
 You can instantiate workspaces on demand by opening the devfile.yaml file in CodeReady Workspaces, e.g. the following URL: https://<CheHost>/f?url=https://<GitRepository>
 
@@ -123,6 +173,5 @@ e.g.
 
 https://codeready-workspaces.apps.cluster-sandbox7-6b91.sandbox7-6b91.example.opentlc.com/f?url=https://github.com/sjbylo/flask-vote-app
 
-Happy polling!
 
 
