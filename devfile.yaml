@@ -16,14 +16,14 @@ components:
     type: dockerimage
     alias: python
 #    image: 'registry.redhat.io/codeready-workspaces/stacks-python-rhel8:2.0'
-    image: 'quay.io/eclipse/che-python-3.6:7.12.1'
+    image: 'quay.io/eclipse/che-python-3.6:nightly'
 commands:
   - name: Install dependencies
     actions:
       - type: exec
         component: python
         command: |
-          pip install flask && pip install flask-sqlalchemy 
+          pip install flask && pip install flask-sqlalchemy && pip install mysqlclient
 # pip install mysql-python
         workdir: /projects/vote-app
   - name: Run

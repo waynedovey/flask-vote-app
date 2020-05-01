@@ -91,7 +91,7 @@ def vote():
         has_voted = True
         vote = request.form['vote']
         if vote_stamp:
-           print ("This client has already voted! The vote stamp is : " + vote_stamp)
+           print(("This client has already voted! The vote stamp is : " + vote_stamp))
         else:
            print ("This client has not voted yet!")
            voted_option = Option.query.filter_by(poll_id=poll.id,id=vote).first() 
@@ -131,7 +131,7 @@ def fail():
 
 if __name__ == '__main__':
 
-    print ("Connect to : " + dburi)
+    print(("Connect to : " + dburi))
 
     db.create_all()
     db.session.commit()
