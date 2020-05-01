@@ -203,7 +203,7 @@ open http://$VOTE_APP/
 
 You can instantiate a workspace on demand by opening the devfile.yaml file in CodeReady Workspaces.
 
-As an example, create an account a https://che.openshift.io/ and then open this URL:
+As an example, create an account at https://che.openshift.io/ and then open this URL:
 
 https://che.openshift.io/f?url=https://github.com/sjbylo/flask-vote-app
 

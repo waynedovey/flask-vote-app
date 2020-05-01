@@ -1,6 +1,6 @@
 apiVersion: 1.0.0
 metadata:
-  name: steve-python
+  name: steve-python-
 projects:
   - name: vote-app
     source:
@@ -26,11 +26,11 @@ commands:
           pip install flask && pip install flask-sqlalchemy && pip install mysqlclient
 # pip install mysql-python
         workdir: /projects/vote-app
-  - name: Run
+  - name: Run vote app
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/vote-app'
         type: exec
-        command: python app.py
+        command: rm -f data/app.db && python app.py
         component: python
   - name: Debug current file
     actions:
