@@ -1,4 +1,5 @@
 # Using plain centos base image, add pip to it
+#FROM centos:7
 FROM centos-7-python:2.7.15 
 
 LABEL Version 1.0
@@ -8,10 +9,11 @@ MAINTAINER Stephen Bylo <StephenBylo@gmail.com>
 # Set the application directory
 WORKDIR /app
 
-# Install MySQL-python (app dependencies) 
-RUN \
-	yum -y install MySQL-python && \
-	yum -y clean all
+# Update
+#RUN yum -y update 
+
+# Install python and pip
+RUN yum -y install epel-release && yum -y install python-pip && yum -y clean all
 
 # Install requirements.txt
 ADD requirements.txt /app/requirements.txt
@@ -19,6 +21,9 @@ RUN pip install -r requirements.txt
 
 # Copy code from the current folder to /app inside the container
 ADD . /app
+
+# Remove any existing db data
+RUN rm -f /app/data/app.db
 
 # Expose the port server listen to
 EXPOSE 8080
