@@ -16,7 +16,7 @@ components:
     type: dockerimage
     alias: python
 #    image: 'registry.redhat.io/codeready-workspaces/stacks-python-rhel8:2.0'
-    image: 'quay.io/eclipse/che-python-3.6'
+    image: 'quay.io/eclipse/che-python-3.6:7.12.1'
 commands:
   - name: Install dependencies
     actions:
