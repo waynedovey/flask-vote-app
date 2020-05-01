@@ -157,15 +157,15 @@ oc set env dc vote-app \
    DB_TYPE=mysql
 ```
 
-## Develop on OpenShift from the local directory
+## Develop the app and launch it on OpenShift from the local directory
 
-Create a 'binary' build 
+Create a 'binary' build.  Binary is refering to the below tar file which is uploaded to he build pod.
 
 ```
 oc new-build python --name vote-app --binary
 ```
 
-Start the build.  This will upload the app code from the current working dir.
+Start the build.  This will upload the app code from the current working dir. 
 
 ```
 oc start-build vote-app --from-dir=. --follow
@@ -183,16 +183,20 @@ Expose the app to the external network
 oc expose svc vote-app
 ```
 
+Test the app, e.g. on mac
+
+```
+VOTE_APP=`oc get route vote-app --template='{{.spec.host}}'`
+./test-vote-app $VOTE_APP 
+open http://$VOTE_APP/
+```
+
 ## CodeReady Workspaces deployment
 
+You can instantiate a workspace on demand by opening the devfile.yaml file in CodeReady Workspaces.
 
-You can instantiate workspaces on demand by opening the devfile.yaml file in CodeReady Workspaces, e.g. the following URL: https://<CheHost>/f?url=https://<GitRepository>
+e.g.:
 
-Open your browser to the devfile in CodeReady Workspaces: https://github.com/sjbylo/flask-vote-app
-
-e.g.
-
-https://codeready-workspaces.apps.cluster-sandbox7-6b91.sandbox7-6b91.example.opentlc.com/f?url=https://github.com/sjbylo/flask-vote-app
-
+https://codeready-workspaces.apps.example.com/f?url=https://github.com/sjbylo/flask-vote-app
 
 
