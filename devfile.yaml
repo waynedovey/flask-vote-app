@@ -42,7 +42,7 @@ commands:
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/vote-app'
         type: exec
-        command: rm -f data/app.db && kill `ps -ef | grep app.py | grep -v grep | awk '{print $2}'` && python app.py && echo Completed successfully
+        command: rm -f data/app.db && kill `ps -ef | grep app.py | grep -v grep | awk '{print $2}'`; python app.py && echo Completed successfully
         component: python
   - name: Stop vote app
     actions:
