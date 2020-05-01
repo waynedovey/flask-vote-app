@@ -15,7 +15,8 @@ components:
     memoryLimit: 512Mi
     type: dockerimage
     alias: python
-    image: 'registry.redhat.io/codeready-workspaces/stacks-python-rhel8:2.0'
+#    image: 'registry.redhat.io/codeready-workspaces/stacks-python-rhel8:2.0'
+    image: 'quay.io/eclipse/che-python-3.6'
 commands:
   - name: Install dependencies
     actions:
