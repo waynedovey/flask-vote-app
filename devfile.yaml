@@ -32,6 +32,24 @@ commands:
         type: exec
         command: rm -f data/app.db && python app.py
         component: python
+  - name: Remove local database data file
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/vote-app'
+        type: exec
+        command: rm -f data/app.db 
+        component: python
+  - name: Restart vote app
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/vote-app'
+        type: exec
+        command: kill `ps -ef | grep app.py | grep -v grep | awk '{print $2}'` && python app.py
+        component: python
+  - name: Stop vote app
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/vote-app'
+        type: exec
+        command: kill `ps -ef | grep app.py | grep -v grep | awk '{print $2}'` 
+        component: python
   - name: Debug current file
     actions:
       - type: vscode-launch
