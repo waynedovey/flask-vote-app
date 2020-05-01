@@ -5,7 +5,7 @@ Users will be prompted with a poll question and related options. They can vote p
 
 The repo has been modified to make it easy to build and run on OpenShift.
 
-The application has also been primed to be easily bound to RDS using the AWS's Service Catalog command line, svcat.  Here is an [https://github.com/sjbylo/lab-ocp4/blob/master/workshop/content/exercises/70-add-cloud-database.md#bind-to-the-database-service](example) of that.
+The application has also been primed to be easily bound to RDS using the AWS's Service Catalog command line, svcat.  Here is an [example](https://github.com/sjbylo/lab-ocp4/blob/master/workshop/content/exercises/70-add-cloud-database.md#bind-to-the-database-service) of that.
 
 This application is intended for demo use only.
 
