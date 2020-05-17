@@ -11,7 +11,7 @@ This application is intended for demo use only.
 
 ## Local deployment
 
-This application can be deployed locally. On linux, install git and clone the reposistory:
+This application can be deployed locally. On linux, install git and clone the repository:
 
 ```
 sudo yum install -y git
@@ -71,12 +71,12 @@ python app.py
 Cleanup:
 
 ```
-rm -f data/app.db    # optionaly remove the database 
+rm -f data/app.db    # optionally remove the database 
 ```
 
 ## Docker deployment
 
-A Dockerfile is provided in the reposistory to build a docker image and run the application as linux container.
+A Dockerfile is provided in the repository to build a docker image and run the application as linux container.
 
 On Linux, install and start Docker:
 
@@ -85,7 +85,7 @@ sudo yum install -y docker
 systemctl start docker
 ```
 
-Install git and clone the reposistory:
+Install git and clone the repository:
 
 ```
 sudo yum install -y git
@@ -165,9 +165,11 @@ oc set env dc vote-app \
    DB_TYPE=mysql
 ```
 
-## Develop the app and launch it on OpenShift from the local directory
+## Develop and quickly build and test the app from your local directory
 
-Create a 'binary' build.  Binary is refering to the below tar file which is uploaded to he build pod:
+To easily develop this application, we can make changes to the local files and then re-build the app by uploading the changes to a new build pod. 
+
+To do this we create a 'binary' build.  Binary is referring to the way the local directory is sent or "streamed" to the build pod using tar. 
 
 ```
 oc new-build python --name vote-app --binary
@@ -199,7 +201,11 @@ VOTE_APP=`oc get route vote-app --template='{{.spec.host}}'`
 open http://$VOTE_APP/
 ```
 
+Now, make changes to the local file(s) and re-build the app.
+To re-build the app on the server, run the above "oc start-build" command again. 
+
 ## CodeReady Workspace deployment
+
 
 You can instantiate a workspace on demand by opening the devfile.yaml file in CodeReady Workspaces.
 
