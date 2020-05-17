@@ -204,12 +204,12 @@ open http://$VOTE_APP/
 Now, make changes to the local file(s) and re-build the app.
 To re-build the app on the server, run the above "oc start-build" command again. 
 
-## CodeReady Workspace deployment
+## Open a dev session with the online Eclipese Che IDE
 
-
-You can instantiate a workspace on demand by opening the devfile.yaml file in CodeReady Workspaces.
+You can start a workspace on demand by opening the devfile.yaml file in Eclipse Che. 
 
 As an example, create an account at https://che.openshift.io/ and then open this URL:
 
 https://che.openshift.io/f?url=https://github.com/sjbylo/flask-vote-app
+
 
