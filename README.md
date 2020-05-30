@@ -9,6 +9,8 @@ The application has also been primed to be easily bound to RDS using the AWS's S
 
 This application is intended for demo use only.
 
+[![Docker Repository on Quay](https://quay.io/repository/sjbylo/flask-vote-app/status "Docker Repository on Quay")](https://quay.io/repository/sjbylo/flask-vote-app)
+
 ## Local deployment
 
 This application can be deployed locally. On linux, install git and clone the repository:
