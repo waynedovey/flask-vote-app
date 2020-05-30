@@ -85,7 +85,7 @@ docker run -d --rm -p 8080:8080 --name=vote-app quay.io/sjbylo/flask-vote-app
 curl http://localhost:8080/
 ```
 
-Stop the container with Ctrl-C
+Stop the container with Ctrl+C
 
 ## Docker build and deployment
 
