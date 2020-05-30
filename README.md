@@ -78,6 +78,17 @@ rm -f data/app.db    # optionally remove the database
 
 ## Docker deployment
 
+The app can be run by pulling the image from quay.io and curling localhost:8080
+
+```
+docker run -d --rm -p 8080:8080 --name=vote-app quay.io/sjbylo/flask-vote-app
+curl http://localhost:8080/
+```
+
+Stop the container with Ctrl-C
+
+## Docker build and deployment
+
 A Dockerfile is provided in the repository to build a docker image and run the application as linux container.
 
 On Linux, install and start Docker:
