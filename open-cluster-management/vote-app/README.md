@@ -8,6 +8,12 @@ Launch the vote-app using ACM with the following on the hub cluster:
 oc create -f vote-app.yaml
 ```
 
+or run:
+
+```
+oc create -f https://raw.githubusercontent.com/sjbylo/flask-vote-app/master/open-cluster-management/vote-app/vote-app.yaml 
+```
+
 Adjust the placement rule object to ensure the vote-app gets placed into one of the managed clusters. 
 
 To ensure vote-app is deployed to any or all of your managed clusters, change the placement rule spec to:
