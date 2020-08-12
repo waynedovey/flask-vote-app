@@ -154,13 +154,19 @@ Build and launch the app:
 oc new-app python~https://github.com/sjbylo/flask-vote-app.git --name vote-app
 ```
 
+As an alternative to the above build, pull the latest image from quay.io registry:
+
+```
+oc new-app --docker-image=quay.io/sjbylo/flask-vote-app:latest --name vote-app
+```
+
 Expose the app to the external network:
 
 ```
 oc expose svc vote-app
 ```
 
-Start a database (optional, if scale-out if needed):
+Start a database (optional, if scale-out is required):
 
 ```
 oc new-app --name db mysql:5.7 -e MYSQL_USER=user -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=vote
