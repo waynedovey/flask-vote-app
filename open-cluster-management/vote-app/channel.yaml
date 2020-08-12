@@ -1,0 +1,10 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: vote-app-channel
+  namespace: acm
+  labels:
+    app: vote-app
+spec:
+  type: Git
+  pathname: https://github.com/sjbylo/flask-vote-app.git

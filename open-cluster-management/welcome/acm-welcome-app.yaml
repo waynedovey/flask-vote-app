@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: welcome
+  labels:
+    app: welcome  
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: welcome
+  namespace: welcome
+  labels:
+    app: welcome
+spec:
+  type: GitHub
+  pathname: https://github.com/eformat/welcome.git
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: welcome-dev-clusters
+  namespace: welcome
+  labels:
+    app: welcome  
+spec:
+#  clusterConditions:
+#    - type: OK
+  clusterSelector: {}
+#    matchExpressions: []
+#    matchLabels:
+#      environment: dev
+---
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: welcome
+  namespace: welcome
+  labels:
+    app: welcome  
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - welcome
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  annotations:
+    apps.open-cluster-management.io/git-path: kube/base
+  name: welcome
+  namespace: welcome
+  labels:
+    app: welcome
+spec:
+  name: welcome
+  channel: welcome/welcome
+  placement:
+    placementRef:
+      name: welcome-dev-clusters
+      kind: PlacementRule
+      apiGroup: apps.open-cluster-management.io
+  packageFilter:
+    filterRef:
+      name: welcome
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: welcome
+  namespace: welcome
+  labels:
+    app: welcome
+data:
+    path: argocd/overlays/cluster1

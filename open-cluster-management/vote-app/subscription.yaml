@@ -1,0 +1,16 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: vote-app-subscription
+  namespace: acm
+  annotations:
+    apps.open-cluster-management.io/git-path: deploy
+    apps.open-cluster-management.io/git-branch: master
+  labels:
+    app: vote-app
+spec:
+  channel: acm/vote-app-channel
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: vote-app-placementrule
