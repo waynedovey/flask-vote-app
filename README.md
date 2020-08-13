@@ -244,6 +244,12 @@ spec:
 END
 ```
 
+or run this command to do the same thing:
+
+```
+oc expose deploy db --port=3306 --name=db-ext --type=LoadBalancer
+```
+
 After the service has been created and the actual load balancer (e.g. ELB in AWS) has been provisioned (including DNS), run something like this:
 
 ```
