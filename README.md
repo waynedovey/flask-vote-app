@@ -223,6 +223,46 @@ open http://$VOTE_APP/
 Now, make changes to the local file(s) and re-build the app.
 To re-build the app on the server, run the above "oc start-build" command again. 
 
+## Expose the database to the external network (optional) 
+
+If you need to allow external ingress connections to the database, for example on AWS or other public cloud providers, you can try this:
+
+```
+oc apply -f - <<END
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-ext
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    deployment: db
+  type: LoadBalancer
+END
+```
+
+After the service has been created and the actual load balancer (e.g. ELB in AWS) has been provisioned (including DNS), run something like this:
+
+```
+oc get svc
+NAME TYPE         CLUSTER-IP     EXTERNAL-IP                                                                  PORT(S)          
+db   LoadBalancer 172.30.193.154 a3faeda4dfe564b05ad14cd157bd2450-1000531162.ap-southeast-1.elb.amazonaws.com 3306:30392/TCP 
+mysql -u user -ppassword -h a3faeda4dfe564b05ad14cd157bd2450-1000531162.ap-southeast-1.elb.amazonaws.com
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+...
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| vote               |
++--------------------+
+2 rows in set (0.01 sec)
+```
+
 ## Open a dev session with the online Eclipese Che IDE
 
 You can start a workspace on demand by opening the devfile.yaml file in Eclipse Che. 
