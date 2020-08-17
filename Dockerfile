@@ -1,10 +1,12 @@
-# Using official python runtime base image
+# Any of these base images should work...
 # This open registry may go away!
-#FROM registry.access.redhat.com/ubi8/python-38
+FROM registry.access.redhat.com/ubi8/python-38
+
 # Authenticated registry:
 #FROM registry.redhat.io/ubi8/python-38         
+
 # Usually docker hub:
-FROM python:3.8
+#FROM python:3.8
 
 LABEL Version 1.0
 
