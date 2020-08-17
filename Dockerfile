@@ -31,10 +31,10 @@ ADD . /app
 
 USER root
 
-RUN chmod -R 770 /app && chgrp -R root /app
+RUN chmod -R g=u /app && chgrp -R 0 /app
 
 # Mount external volumes for logs and data
-VOLUME ["/app/data", "/app/seeds", "/app/logs"]
+#VOLUME ["/app/data", "/app/seeds", "/app/logs"]
 
 USER 1001
 
