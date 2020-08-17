@@ -1,10 +1,10 @@
 # Using official python runtime base image
 # This open registry may go away!
-#FROM registry.access.redhat.com/ubi8/python-38
+FROM registry.access.redhat.com/ubi8/python-38
 # Authenticated registry:
 #FROM registry.redhat.io/ubi8/python-38         
 # Usually docker hub:
-FROM python    			        
+#FROM python:3.8
 
 LABEL Version 1.0
 
@@ -31,7 +31,7 @@ ADD . /app
 
 USER root
 
-RUN chmod -R 770 /app && chgrp -R root /app
+RUN chown -R 1001 /app && chmod -R g=u /app && chgrp -R 0 /app
 
 # Mount external volumes for logs and data
 VOLUME ["/app/data", "/app/seeds", "/app/logs"]
