@@ -1,5 +1,10 @@
 # Using official python runtime base image
-FROM python:3.8
+# This open registry may go away!
+#FROM registry.access.redhat.com/ubi8/python-38
+# Authenticated registry:
+#FROM registry.redhat.io/ubi8/python-38         
+# Usually docker hub:
+FROM python    			        
 
 LABEL Version 1.0
 
@@ -24,8 +29,14 @@ RUN pip install -r requirements.txt
 # Copy code from the current folder to /app inside the container
 ADD . /app
 
+USER root
+
+RUN chmod -R 770 /app && chgrp -R root /app
+
 # Mount external volumes for logs and data
 VOLUME ["/app/data", "/app/seeds", "/app/logs"]
+
+USER 1001
 
 # Expose the port server listen to
 EXPOSE 8080
