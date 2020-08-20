@@ -81,7 +81,7 @@ spec:
           value: password
         - name: MYSQL_USER
           value: user
-        image: registry.redhat.io/rhscl/mysql-57-rhel7:latest
+        image: registry.access.redhat.com/rhscl/mysql-57-rhel7:latest
         imagePullPolicy: IfNotPresent
         name: db
         ports:
